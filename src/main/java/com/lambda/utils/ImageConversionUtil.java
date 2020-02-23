@@ -3,21 +3,17 @@ package com.lambda.utils;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class ImageConversionUtil {
-    public static File createThumbnail(File inputImgFile, int width, int height){
-        File outputFile=null;
-        try {
+
+    public static InputStream createThumbnail(InputStream inputImgStream, int width, int height) throws IOException {
             BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-            img.createGraphics().drawImage(ImageIO.read(inputImgFile).getScaledInstance(width, height, Image.SCALE_SMOOTH),0,0,null);
-            outputFile=new File(inputImgFile.getParentFile()+File.separator+"thumnail_"+inputImgFile.getName());
-            ImageIO.write(img, "jpg", outputFile);
-            return outputFile;
-        } catch (IOException e) {
-            System.out.println("Exception while generating thumbnail "+e.getMessage());
-            return null;
-        }
+            img.createGraphics().drawImage(ImageIO.read(inputImgStream).getScaledInstance(
+                    width, height, Image.SCALE_SMOOTH),0,0,null);
+
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            ImageIO.write(img, "jpeg", os);
+            return new ByteArrayInputStream(os.toByteArray());
     }
 }

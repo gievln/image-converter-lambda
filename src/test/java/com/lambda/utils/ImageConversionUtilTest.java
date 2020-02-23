@@ -2,20 +2,20 @@ package com.lambda.utils;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
+import java.io.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ImageConversionUtilTest {
+class ImageConversionUtilTest {
     @Test
-    void should_TransformImageSize_When_NewDimensionsAreApplied(){
-        File image = loadFileFromResources();
-        File transformedFile = ImageConversionUtil.createThumbnail(image, 10, 10);
-        assertThat(transformedFile).isNotNull();
+    void should_TransformImageSize_When_NewDimensionsAreApplied() throws IOException {
+        InputStream imageStream = loadFileFromResources();
+        InputStream transformedFileStream = ImageConversionUtil.createThumbnail(imageStream, 10, 10);
+        assertThat(transformedFileStream).isNotNull();
     }
 
-    private File loadFileFromResources() {
+    private InputStream loadFileFromResources() throws FileNotFoundException {
         String path = "src/test/resources/com/lambda/images/rick.png";
-        return new File(path);
+        return new FileInputStream(new File(path));
     }
 }
