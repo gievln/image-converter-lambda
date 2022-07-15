@@ -10,7 +10,7 @@
 
     <properties>
         <junit.version>5.5.1</junit.version>
-        <amazon.java.sdk.version>1.11.587</amazon.java.sdk.version>
+        <amazon.java.sdk.version>1.12.261</amazon.java.sdk.version>
     </properties>
 
     <dependencyManagement>
